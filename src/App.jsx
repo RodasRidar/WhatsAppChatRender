@@ -5,7 +5,7 @@ import ChatList from './components/ChatList';
 import ChatScreen from './components/ChatScreen';
 
 export default function App() {
-  const { chats, error, importFile, getRaw, removeChat } = useChats();
+  const { chats, error, importFile, getRaw, renameChat, removeChat } = useChats();
   const [selectedId, setSelectedId] = useState(null);
 
   const selected = selectedId ? chats.find((c) => c.id === selectedId) : null;
@@ -27,6 +27,7 @@ export default function App() {
             error={error}
             onImport={importFile}
             onOpen={setSelectedId}
+            onRename={renameChat}
             onDelete={removeChat}
           />
         )}

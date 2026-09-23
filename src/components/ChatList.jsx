@@ -7,7 +7,7 @@ import { formatListTime } from '../domain/format';
  * Chat list screen (like WhatsApp's home). Shows every imported chat; tapping a
  * row opens it. Importing adds a new chat without touching the others.
  */
-export default function ChatList({ chats, error, onImport, onOpen, onDelete }) {
+export default function ChatList({ chats, error, onImport, onOpen, onRename, onDelete }) {
   const [dragging, setDragging] = useState(false);
 
   if (chats.length === 0) {
@@ -42,15 +42,59 @@ export default function ChatList({ chats, error, onImport, onOpen, onDelete }) {
         onDrop={handleDrop}
       >
         {chats.map((chat) => (
-          <ChatRow key={chat.id} chat={chat} onOpen={onOpen} onDelete={onDelete} />
+          <ChatRow
+            key={chat.id}
+            chat={chat}
+            onOpen={onOpen}
+            onRename={onRename}
+            onDelete={onDelete}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function ChatRow({ chat, onOpen, onDelete }) {
-  const [confirming, setConfirming] = useState(false);
+// mode: 'view' | 'edit' | 'confirm'
+function ChatRow({ chat, onOpen, onRename, onDelete }) {
+  const [mode, setMode] = useState('view');
+  const [draft, setDraft] = useState(chat.title);
+
+  const save = () => {
+    onRename(chat.id, draft);
+    setMode('view');
+  };
+  const cancel = () => {
+    setDraft(chat.title);
+    setMode('view');
+  };
+
+  if (mode === 'edit') {
+    return (
+      <div className="chat-row chat-row--edit" onClick={(e) => e.stopPropagation()}>
+        <div className="avatar avatar--list" aria-hidden="true">{initials(draft || chat.title)}</div>
+        <input
+          className="chat-row__input"
+          autoFocus
+          value={draft}
+          maxLength={40}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') save();
+            if (e.key === 'Escape') cancel();
+          }}
+          onBlur={save}
+        />
+        {/* onMouseDown preventDefault keeps the input from blurring before the click. */}
+        <button className="icon-act" title="Guardar" onMouseDown={(e) => e.preventDefault()} onClick={save}>
+          ✔️
+        </button>
+        <button className="icon-act" title="Cancelar" onMouseDown={(e) => e.preventDefault()} onClick={cancel}>
+          ✖️
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="chat-row" onClick={() => onOpen(chat.id)}>
@@ -67,27 +111,37 @@ function ChatRow({ chat, onOpen, onDelete }) {
         </div>
       </div>
 
-      {confirming ? (
-        <div className="chat-row__confirm" onClick={(e) => e.stopPropagation()}>
+      {mode === 'confirm' ? (
+        <div className="chat-row__actions" onClick={(e) => e.stopPropagation()}>
           <button className="mini-btn mini-btn--danger" onClick={() => onDelete(chat.id)}>
             Borrar
           </button>
-          <button className="mini-btn" onClick={() => setConfirming(false)}>
+          <button className="mini-btn" onClick={() => setMode('view')}>
             Cancelar
           </button>
         </div>
       ) : (
-        <button
-          type="button"
-          className="chat-row__delete"
-          title="Borrar chat"
-          onClick={(e) => {
-            e.stopPropagation();
-            setConfirming(true);
-          }}
-        >
-          🗑️
-        </button>
+        <div className="chat-row__actions" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            className="icon-act"
+            title="Editar nombre"
+            onClick={() => {
+              setDraft(chat.title);
+              setMode('edit');
+            }}
+          >
+            ✏️
+          </button>
+          <button
+            type="button"
+            className="icon-act"
+            title="Borrar chat"
+            onClick={() => setMode('confirm')}
+          >
+            🗑️
+          </button>
+        </div>
       )}
     </div>
   );

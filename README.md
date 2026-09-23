@@ -8,6 +8,7 @@ WhatsApp-like interface. Everything runs in the browser — the chat is stored i
 
 - **Multiple chats**: import several exports and view each independently — a chat
   list screen, tap to open, back button to return. No need to delete one to see another.
+- **Rename** a chat from the list (✏️) and delete it (🗑️, with confirm).
 - Import a WhatsApp `.txt` export via button or drag & drop.
 - WhatsApp-style bubbles: your messages (`Tú`) on the right, others on the left.
 - Day separators (Hoy / Ayer / full date), grouped bubbles with tails, and sender colors.
@@ -27,6 +28,7 @@ WhatsApp-like interface. Everything runs in the browser — the chat is stored i
 ```bash
 npm install
 npm run dev      # http://localhost:5173
+npm run lint     # ESLint (no-undef catches undefined references before runtime)
 ```
 
 Build for static hosting:

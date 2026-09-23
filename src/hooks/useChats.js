@@ -125,6 +125,16 @@ export function useChats() {
     }
   }, []);
 
+  const renameChat = useCallback((id, title) => {
+    const clean = title.trim();
+    if (!clean) return;
+    setChats((prev) => {
+      const next = prev.map((c) => (c.id === id ? { ...c, title: clean } : c));
+      writeIndex(next);
+      return next;
+    });
+  }, []);
+
   const removeChat = useCallback((id) => {
     try {
       localStorage.removeItem(rawKey(id));
@@ -138,5 +148,5 @@ export function useChats() {
     });
   }, []);
 
-  return { chats, error, importFile, getRaw, removeChat };
+  return { chats, error, importFile, getRaw, renameChat, removeChat };
 }

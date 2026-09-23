@@ -265,25 +265,42 @@ body {
   margin-top: 2px;
 }
 
-.chat-row__delete {
+.chat-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.icon-act {
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   padding: 6px;
   border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.12s ease;
+  line-height: 1;
+  opacity: 0.55;
+  transition: opacity 0.12s ease, background 0.12s ease;
 }
 
-.chat-row:hover .chat-row__delete {
-  opacity: 0.7;
+.icon-act:hover {
+  opacity: 1;
+  background: #eceff1;
 }
 
-.chat-row__confirm {
-  display: flex;
-  gap: 6px;
-  flex: 0 0 auto;
+.chat-row__input {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  padding: 7px 10px;
+  border: 1px solid var(--wa-teal);
+  border-radius: 8px;
+  outline: none;
+}
+
+.chat-row--edit {
+  gap: 8px;
 }
 
 .mini-btn {
