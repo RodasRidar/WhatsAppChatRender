@@ -1,0 +1,25 @@
+{
+  "name": "whatsapp-chat-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Local viewer for exported WhatsApp .txt chats with a WhatsApp-like UI.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "vite": "^5.4.11"
+  }
+}

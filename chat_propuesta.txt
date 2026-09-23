@@ -1,0 +1,126 @@
+# PROPUESTA — HAPPY PATH IDEAL · CHATBOT MOLDEART3D (caso B2C: regalo, club de fútbol)
+# Formato de exportación de WhatsApp. "Tú:" = chatbot (IA + reglas). Mensajes del cliente con nombre ficticio.
+# Líneas "- ⚙️ ..." = acciones internas que el cliente NO ve (IA, Google Sheets, Google Calendar, Cobrana).
+# [Botones: ...] y [Lista: ...] = mensajes interactivos de WhatsApp (el cliente toca en vez de escribir).
+Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos.
+[9/22/26, 8:01:50 AM] - Este chat se inició a partir de un anuncio en Facebook o Instagram. El uso compartido de datos para las actividades relacionadas con el cliente está activado.
+[9/22/26, 8:01:50 AM] Carla Ramos: Hola, quiero más información sobre los posavasos. ¿Incluye el despacho?
+[9/22/26, 8:01:51 AM] - ⚙️ Webhook recibe el mensaje + referral del anuncio (campaña: POSAVASOS). Google Sheets › hoja LEADS: nueva fila (celular 51987654321, origen: Meta Ads, producto: POSAVASOS, estado: NUEVO).
+[9/22/26, 8:01:52 AM] - ⚙️ IA · intención: POSAVASOS · pregunta pendiente: delivery · segmento aún desconocido → responder la pregunta y luego calificar.
+[9/22/26, 8:01:55 AM] Tú: ¡Hola! 😊 Gracias por escribir a MOLDEART3D.
+
+¡Sí hacemos despacho! 🛵
+• Lima Metropolitana: delivery S/ 10.00
+• Provincias: envío por Shalom (pago en destino)
+
+Cuéntame, ¿qué tipo de posavasos estás buscando? 🤩
+[9/22/26, 8:01:55 AM] Tú: [Botones: ⚽ Club de fútbol | 🏢 Logo de mi empresa | 🎨 Mi propio diseño]
+[9/22/26, 8:02:20 AM] Carla Ramos: ⚽ Club de fútbol
+[9/22/26, 8:02:41 AM] Carla Ramos: De la U, es para un regalo 🎁
+[9/22/26, 8:02:42 AM] - ⚙️ IA · segmento: B2C REGALO · club: UNIVERSITARIO · es_regalo: SÍ. Sheets › LEADS: estado → CALIFICADO.
+[9/22/26, 8:02:45 AM] Tú: <video omitido> ¡Excelente elección! 💛❤️ Así quedan nuestros posavasos de la U: impresos en 3D con acabado en resina, brillo espejo ✨
+[9/22/26, 8:02:45 AM] Tú: <imagen omitida>
+[9/22/26, 8:02:46 AM] Tú: ⚽ POSAVASOS DE LA U
+
+🔹 Pack 6 unidades + 1 estuche personalizado con su nombre: S/ 59.90
+🔹 OFERTA: Pack 12 unidades + 1 estuche personalizado: S/ 109.90
+
+🎁 El estuche lleva el nombre que tú elijas, ideal para sorprender.
+⏳ Producción: 3 días hábiles (2 días son de secado de la resina).
+
+¿Para qué fecha lo necesitas? Así te confirmo si llegamos a tiempo 🙌
+[9/22/26, 8:04:10 AM] Carla Ramos: Quiero el de 6. Es para el cumpleaños de mi esposo este sábado
+[9/22/26, 8:04:11 AM] - ⚙️ IA · pack: 6 UND · fecha_requerida: sáb 26/09.
+[9/22/26, 8:04:11 AM] - ⚙️ Google Calendar (calendario PRODUCCIÓN) › consulta capacidad: pedido hoy mar 22/09 + 3 días hábiles = listo vie 25/09. Cupos de entrega vie 25/09: 4 de 10 ocupados → DISPONIBLE.
+[9/22/26, 8:04:13 AM] Tú: ¡Llegamos a tiempo! 🥳 Si confirmas hoy, te lo entregamos el viernes 25/09, un día antes del cumpleaños.
+
+Ahora armemos tu pack 👇
+En el pack de 6 puedes combinar hasta 3 diseños distintos (2 de cada uno).
+[9/22/26, 8:04:14 AM] Tú: <imagen omitida> (catálogo: diseños de la U numerados)
+[9/22/26, 8:04:14 AM] Tú: [Lista: Elegir diseños → U Clásico | Centenario | Lolo | Norte | Todos iguales]
+[9/22/26, 8:05:02 AM] Carla Ramos: 2 clásico, 2 centenario y 2 norte
+[9/22/26, 8:05:03 AM] - ⚙️ IA valida: 3 diseños × 2 und = 6 ✓ (regla: máx. 3 diseños en pack de 6).
+[9/22/26, 8:05:05 AM] Tú: ¡Perfecto! 🙌
+• 2 U Clásico
+• 2 Centenario
+• 2 Norte
+
+¿Qué nombre ponemos en el estuche? ✍️ (máx. 12 letras)
+[9/22/26, 8:05:40 AM] Carla Ramos: Juan
+[9/22/26, 8:05:43 AM] - ⚙️ Se genera la vista previa del estuche con plantilla + texto "JUAN" (imagen automática, sin intervención del diseñador).
+[9/22/26, 8:05:45 AM] Tú: <imagen omitida> Así quedaría el estuche de Juan 😍 ¿Lo dejamos así?
+[9/22/26, 8:05:45 AM] Tú: [Botones: ✅ Sí, me encanta | ✏️ Cambiar nombre]
+[9/22/26, 8:06:01 AM] Carla Ramos: ✅ Sí, me encanta
+[9/22/26, 8:06:03 AM] Tú: ¡Genial! Para registrar tu pedido compárteme por favor:
+
+• Nombres y apellidos
+• DNI
+• Dirección completa (con distrito y una referencia)
+
+Tu celular ya lo tengo registrado desde este WhatsApp 😉
+[9/22/26, 8:07:30 AM] Carla Ramos: Carla Ramos Vega, DNI 45678912, Av. La Fontana 1234 dpto 302 La Molina, frente al parque
+[9/22/26, 8:07:31 AM] - ⚙️ IA extrae y valida: nombre ✓ · DNI 8 dígitos ✓ · distrito La Molina → Lima Metropolitana → delivery S/ 10.00 ✓.
+[9/22/26, 8:07:32 AM] - ⚙️ Se calcula el total (S/ 59.90 + S/ 10.00 = S/ 69.90) y el adelanto con la regla configurada (50 % redondeado = S/ 35.00). Sheets › PEDIDOS: nueva fila MA3D-0142, estado: PENDIENTE DE PAGO.
+[9/22/26, 8:07:35 AM] Tú: Este es el detalle de tu pedido ✨
+
+🧾 Pedido N° MA3D-0142
+👤 Cliente: CARLA RAMOS VEGA
+🪪 DNI: 45678912
+📱 Celular: 987 654 321
+📦 Producto: PACK 06 UND UNIVERSITARIO
+   - 02 U CLÁSICO
+   - 02 CENTENARIO
+   - 02 NORTE
+🎁 Estuche personalizado: JUAN
+📅 Entrega: viernes 25/09 (entre 2 y 7 p. m.)
+🛵 Dirección: Av. La Fontana 1234 dpto 302, La Molina (frente al parque)
+
+💰 Total: S/ 69.90 (incluye S/ 10.00 de delivery)
+💳 Adelanto para iniciar producción: S/ 35.00
+🤝 Saldo contra entrega: S/ 34.90
+
+¿Está todo correcto?
+[9/22/26, 8:07:35 AM] Tú: [Botones: ✅ Confirmar y pagar | ✏️ Corregir algo]
+[9/22/26, 8:08:10 AM] Carla Ramos: ✅ Confirmar y pagar
+[9/22/26, 8:08:11 AM] - ⚙️ Cobrana › API: crea orden de cobro S/ 35.00, referencia MA3D-0142, vigencia 24 h. Devuelve link de pago de servicio (Yape / banca móvil) y link de pago con tarjeta.
+[9/22/26, 8:08:11 AM] - ⚙️ Google Calendar › bloqueo PROVISIONAL del cupo de entrega vie 25/09 (se libera si no paga en 24 h).
+[9/22/26, 8:08:13 AM] Tú: ¡Listo! Elige cómo pagar tu adelanto de S/ 35.00 👇
+
+🟣 Yape o app de tu banco (BCP, BBVA, Interbank, Scotiabank):
+https://pagar.cobrana.pe/xxxxxx
+
+💳 Tarjeta de crédito o débito:
+https://pagar.cobrana.pe/yyyyyy
+
+Apenas se refleje tu pago te confirmo aquí mismo, no necesitas enviar captura 🙌
+[9/22/26, 8:10:47 AM] - ⚙️ Webhook Cobrana: pago CONFIRMADO · S/ 35.00 · Yape · ref MA3D-0142.
+[9/22/26, 8:10:48 AM] - ⚙️ Sheets › PEDIDOS MA3D-0142: estado → CONFIRMADO · adelanto_pagado: 35.00 · saldo: 34.90 · método: Yape · fecha_pedido: 22/09/2026 · fecha_entrega: 25/09/2026.
+[9/22/26, 8:10:48 AM] - ⚙️ Google Calendar: evento "📥 Pedido MA3D-0142 · Pack 6 U · JUAN" el 22/09 (inicio producción) + evento "🛵 Entrega MA3D-0142 · La Molina · saldo S/ 34.90" el vie 25/09 14:00–19:00 (reemplaza el bloqueo provisional). Descripción con diseños, nombre del estuche y dirección.
+[9/22/26, 8:10:49 AM] - ⚙️ Aviso al grupo interno de producción: "Nuevo pedido MA3D-0142 confirmado – entrega vie 25/09".
+[9/22/26, 8:10:50 AM] Tú: ✅ ¡Pago recibido, Carla! Tu pedido MA3D-0142 quedó confirmado y hoy mismo entra a producción 🖨️
+
+📅 Entrega: viernes 25/09, entre 2 y 7 p. m.
+Te iré avisando por aquí cómo avanza.
+
+Puedes ver cómo trabajamos en nuestro IG 👉 https://www.instagram.com/moldeart3d_peru/
+[9/22/26, 8:10:51 AM] Tú: PD: también hacemos llaveros personalizados 🔑, por si quieres sumar un detalle al regalo. Solo escríbeme "llaveros" 😉
+[9/22/26, 8:11:20 AM] Carla Ramos: Genial, muchas gracias!! 🙏
+[9/22/26, 8:11:22 AM] Tú: ¡Gracias a ti por elegirnos! 💛 Juan va a quedar encantado.
+[9/23/26, 4:30:12 PM] - ⚙️ El equipo cambia el estado en Sheets a EN PRODUCCIÓN y sube el video → se dispara el mensaje de avance.
+[9/23/26, 4:30:15 PM] Tú: <video omitido> ¡Hola Carla! 👋 Así van los posavasos de Juan: ya están impresos y ahora pasan al secado de resina ✨
+[9/23/26, 5:02:40 PM] Carla Ramos: Qué lindos!! 😍
+[9/25/26, 9:30:02 AM] - ⚙️ Sheets: estado → LISTO PARA ENVÍO. Cobrana › API: crea orden por el saldo S/ 34.90. (Fuera de la ventana de 24 h → se envía plantilla de utilidad aprobada por Meta.)
+[9/25/26, 9:30:05 AM] Tú: ¡Buen día, Carla! 🎉 Tu pedido MA3D-0142 está listo y sale hoy entre 2 y 7 p. m. hacia La Molina 🛵
+
+Saldo pendiente: S/ 34.90. Puedes adelantarlo aquí y el motorizado solo entrega:
+https://pagar.cobrana.pe/zzzzzz
+[9/25/26, 9:30:05 AM] Tú: [Botones: 💳 Ya lo pago aquí | 🤝 Pago al recibir | 🕐 Cambiar horario]
+[9/25/26, 9:41:18 AM] - ⚙️ Webhook Cobrana: saldo CONFIRMADO · S/ 34.90. Sheets: estado → PAGADO TOTAL. Calendar: evento de entrega marcado "✅ Pagado".
+[9/25/26, 9:41:20 AM] Tú: ✅ ¡Saldo recibido! Pedido pagado al 100 %. Te aviso cuando el motorizado esté en camino 🙌
+[9/25/26, 3:12:44 PM] - ⚙️ El repartidor marca ENTREGADO y sube la foto. Sheets: estado → ENTREGADO · fecha_entrega_real: 25/09/2026.
+[9/25/26, 3:12:47 PM] Tú: <imagen omitida> 📦 ¡Pedido entregado! Que Juan disfrute mucho su regalo y feliz cumpleaños 🥳💛
+[9/27/26, 11:00:03 AM] Tú: ¡Hola Carla! ¿Qué tal le parecieron los posavasos a Juan? 😊 Nos ayudaría muchísimo si nos calificas:
+[9/27/26, 11:00:03 AM] Tú: [Botones: ⭐⭐⭐⭐⭐ Me encantó | 🙂 Estuvo bien | 😕 Tuve un problema]
+[9/27/26, 11:20:31 AM] Carla Ramos: ⭐⭐⭐⭐⭐ Me encantó
+[9/27/26, 11:20:33 AM] Tú: ¡Qué alegría! 🥰 Si nos etiquetas en una historia con @moldeart3d_peru te regalamos 10 % en tu próxima compra. ¡Gracias por confiar en nosotros!
+[9/27/26, 11:20:34 AM] - ⚙️ Sheets › PEDIDOS: calificación 5 · estado → CERRADO. LEADS: cliente marcado para campaña de recompra.
