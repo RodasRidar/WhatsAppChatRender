@@ -181,7 +181,10 @@ export function parseChat(raw) {
   let last = null;
   let seenHeader = false;
 
-  for (const line of lines) {
+  // `srcStart`/`srcEnd` mark the raw line span each item owns (inclusive), so an
+  // export can rewrite only the edited items and leave every other line intact.
+  for (let li = 0; li < lines.length; li++) {
+    const line = lines[li];
     // Skip file-level comment lines (e.g. proposal notes) before the chat starts.
     if (!seenHeader && line.trimStart().startsWith('#')) continue;
     if (line.trim() === '' && last === null) continue;
@@ -193,8 +196,16 @@ export function parseChat(raw) {
       if (last) {
         last.text = last.text ? `${last.text}\n${line}` : line;
         if (last.type === 'message' && !last.media) last.media = detectMedia(last.text);
+        // Keep the raw body in sync so `srcPrefix + srcText` reproduces the
+        // original lines verbatim (used for editing and faithful export).
+        last.srcText = last.srcText != null ? `${last.srcText}\n${line}` : line;
+        last.srcEnd = li;
       } else if (line.trim() !== '') {
         last = makeSystem(line.trim(), null);
+        last.srcPrefix = '';
+        last.srcText = line;
+        last.srcStart = li;
+        last.srcEnd = li;
         items.push(last);
       }
       continue;
@@ -203,9 +214,17 @@ export function parseChat(raw) {
     seenHeader = true;
     const { body, stamp } = header;
 
+    // Everything on the header line before the body, so an export can splice
+    // `srcPrefix + editedBody` back in.
+    const prefix = line.slice(0, line.length - body.length);
+
     // System line: bracket export writes "- text"; dash export has no "Sender:".
     if (/^-\s/.test(body) || (!SENDER_RE.test(body) && !body.includes(':'))) {
       last = makeSystem(body, stamp);
+      last.srcPrefix = prefix;
+      last.srcText = body;
+      last.srcStart = li;
+      last.srcEnd = li;
       items.push(last);
       continue;
     }
@@ -214,9 +233,18 @@ export function parseChat(raw) {
     if (senderMatch) {
       const [, sender, text] = senderMatch;
       last = makeMessage(sender, text, stamp);
+      // The prefix must also cover "Sender: ", so extend it past the header.
+      last.srcPrefix = line.slice(0, line.length - text.length);
+      last.srcText = text;
+      last.srcStart = li;
+      last.srcEnd = li;
       items.push(last);
     } else {
       last = makeSystem(body, stamp);
+      last.srcPrefix = prefix;
+      last.srcText = body;
+      last.srcStart = li;
+      last.srcEnd = li;
       items.push(last);
     }
   }
@@ -237,4 +265,30 @@ export function parseChat(raw) {
   const meName = meItem ? meItem.sender : null;
 
   return { items, participants, meName, internalCount };
+}
+
+/**
+ * Every message is editable: the editor exposes the raw body (the exact text
+ * after "Sender: " in the export), so captions, [Botones:...] and [Lista:...]
+ * are all editable and round-trip faithfully. System notices stay read-only.
+ */
+export function isEditable(item) {
+  return item.type === 'message';
+}
+
+/**
+ * Re-derive a message from an edited raw body, keeping its identity and source
+ * span. Used to live-render an edit (media, interactive, text, deleted, …)
+ * without touching the untouched items around it.
+ */
+export function editMessageBody(item, body) {
+  const next = makeMessage(item.sender, body, { ms: item.ms, dayKey: item.dayKey });
+  return {
+    ...next,
+    id: item.id,
+    srcPrefix: item.srcPrefix,
+    srcText: body,
+    srcStart: item.srcStart,
+    srcEnd: item.srcEnd,
+  };
 }

@@ -386,6 +386,31 @@ body {
   gap: 2px;
 }
 
+.chat__action {
+  background: rgba(255, 255, 255, 0.16);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 16px;
+  line-height: 1;
+}
+
+.chat__action:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.chat__action--save {
+  background: #fff;
+  color: var(--wa-teal);
+}
+
+.chat__action--save:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+
 .chat__banner {
   background: #fff3cd;
   color: #7a5b00;
@@ -557,6 +582,24 @@ body {
 .bubble__text {
   white-space: pre-wrap;
   color: var(--wa-text);
+}
+
+.bubble__edit {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  color: var(--wa-text);
+  background: #fffef2;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  padding: 4px 6px;
+  resize: vertical;
+  min-height: 1.6em;
+}
+
+.bubble__edit:focus {
+  outline: none;
+  border-color: var(--wa-teal);
 }
 
 .bubble__deleted {

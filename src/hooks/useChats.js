@@ -5,6 +5,9 @@ import { parseChat } from '../domain/parseChat';
 // entry per chat (kept separate so importing one doesn't rewrite the others).
 const INDEX_KEY = 'whatsapp-viewer:index';
 const rawKey = (id) => `whatsapp-viewer:chat:${id}`;
+// Edit overlay: item.id -> new text. Kept apart from the raw source of truth so
+// re-parsing stays clean and edits are applied on top when rendering/exporting.
+const editsKey = (id) => `whatsapp-viewer:edits:${id}`;
 
 // Legacy single-chat keys from the earlier version (migrated on first load).
 const LEGACY_RAW = 'whatsapp-viewer:chat';
@@ -125,6 +128,26 @@ export function useChats() {
     }
   }, []);
 
+  const getEdits = useCallback((id) => {
+    try {
+      return JSON.parse(localStorage.getItem(editsKey(id)) || '{}');
+    } catch {
+      return {};
+    }
+  }, []);
+
+  const saveEdits = useCallback((id, edits) => {
+    try {
+      if (!edits || Object.keys(edits).length === 0) {
+        localStorage.removeItem(editsKey(id));
+      } else {
+        localStorage.setItem(editsKey(id), JSON.stringify(edits));
+      }
+    } catch {
+      /* quota — edits stay in memory for this session */
+    }
+  }, []);
+
   const renameChat = useCallback((id, title) => {
     const clean = title.trim();
     if (!clean) return;
@@ -138,6 +161,7 @@ export function useChats() {
   const removeChat = useCallback((id) => {
     try {
       localStorage.removeItem(rawKey(id));
+      localStorage.removeItem(editsKey(id));
     } catch {
       /* ignore */
     }
@@ -148,5 +172,5 @@ export function useChats() {
     });
   }, []);
 
-  return { chats, error, importFile, getRaw, renameChat, removeChat };
+  return { chats, error, importFile, getRaw, getEdits, saveEdits, renameChat, removeChat };
 }

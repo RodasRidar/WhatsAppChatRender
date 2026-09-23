@@ -20,10 +20,48 @@ export function nameColor(sender, participants) {
   return NAME_COLORS[idx % NAME_COLORS.length];
 }
 
-export default function MessageBubble({ item, showName, showTail, participants }) {
+export default function MessageBubble({
+  item,
+  showName,
+  showTail,
+  participants,
+  editing = false,
+  editable = false,
+  rawValue = '',
+  onChange,
+}) {
   const side = item.isMe ? 'out' : 'in';
   const media = item.media ? MEDIA_LABEL[item.media] : null;
   const caption = media ? stripPlaceholder(item.text) : item.text;
+
+  // Edit mode exposes the raw export body (caption + <media> placeholder +
+  // [Botones:...] / [Lista:...]) so anything in the message can be changed.
+  if (editing && editable) {
+    return (
+      <div className={`row row--${side}`}>
+        <div className="stack">
+          <div className={`bubble bubble--${side} ${showTail ? 'bubble--tail' : ''}`}>
+            {showName && !item.isMe && (
+              <div className="bubble__name" style={{ color: nameColor(item.sender, participants) }}>
+                {item.sender}
+              </div>
+            )}
+            <textarea
+              className="bubble__edit"
+              value={rawValue}
+              rows={Math.max(2, rawValue.split('\n').length)}
+              onChange={(e) => onChange?.(e.target.value)}
+              aria-label="Editar mensaje (contenido crudo)"
+            />
+            <span className="bubble__time">
+              {formatTime(item.ms)}
+              {item.isMe && <span className="bubble__ticks" aria-label="Enviado">✓✓</span>}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // A message may carry only an interactive block (no text/media): in that case
   // we skip the bubble chrome and render the buttons/list on their own.
